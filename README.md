@@ -28,6 +28,8 @@ crater-boulder-detector/
 - Total training images: **13,955**
 - Total validation images: **3,740**
 - Each image is associated with label files in YOLO format (bounding boxes).
+- 📂 [Click here to download the dataset](https://drive.google.com/drive/folders/1MYrhCtq5oQPsNDDOUdGTkW_H1VF8yXzw?usp=drive_link)
+
 
 ## Training Details
 
@@ -82,7 +84,7 @@ Final weights saved at `runs/detect/crater_boulder_fast_train2/weights/best.pt`.
 |-----------------------|--------------------------------------------------------------------------|
 | Model Choice          | YOLOv8n (Nano) for speed and accuracy tradeoff                           |
 | Input Size            | 416x416 for sufficient detail + low compute requirements                 |
-| Batch Size            | 16, optimal for T4 GPU                                                   |
+| Batch Size            | 8, optimal for T4 GPU                                                   |
 | Epochs                | 15, chosen for a balanced train time and early convergence               |
 | Augmentations         | Applied conservatively (probability 0.01) to avoid image degradation     |
 | CLAHE, Blurs, Gray    | Improved contrast/lighting handling in various lunar surface textures    |
@@ -194,7 +196,7 @@ model = YOLO("runs/detect/crater_boulder_fast_train/weights/best.pt")
 results = model.predict(source="path/to/test/image.jpg", save=True)
 
 ```
-You can use the model we trained. You can find it in /weights/best.pt and infer it.
+You can use the model we trained. You can find it in Trained_Model folder and infer it.
 
 ### 6. UI 
 
