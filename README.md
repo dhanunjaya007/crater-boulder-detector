@@ -94,19 +94,16 @@ Final weights saved at `runs/detect/crater_boulder_fast_train2/weights/best.pt`.
 | UI Implementation     | A basic Streamlit interface for uploading and viewing results            |
 
 ---
-## Running the Project
+## Creating the Project
 
-### 1. Clone the Repository
+### 1. Open a new notebook in colab
 
-```bash
-git clone https://github.com/your-username/crater-boulder-detector.git
-cd crater-boulder-detector
-```
+Change the running time to GPU for a faster training period
 
 ### 2. Install Requirements
 
 ```bash
-pip install -r requirements.txt
+!pip install ultralytics
 ```
 ### 3. Download the Dataset
 
@@ -114,27 +111,62 @@ Before training or inference, download the dataset from Google Drive:
 
 📂 [Click here to download the dataset](https://drive.google.com/drive/folders/1MYrhCtq5oQPsNDDOUdGTkW_H1VF8yXzw?usp=drive_link)
 
+And have it locally on colab.
+
+or 
+
+```python
+!rsync -a --progress "/content/drive/.shortcut-targets-by-id/1MYrhCtq5oQPsNDDOUdGTkW_H1VF8yXzw/Dataset" /content
+```
+
+### 4. Change the data format to data.yaml
+
+```
+data_yaml = """
+train: /content/Dataset/train/images
+val: /content/Dataset/valid/images
+
+nc: 2
+names: ['crater', 'boulder']
+"""
+
+with open('/content/data.yaml', 'w') as f:
+    f.write(data_yaml)
+
+```
 
 ### 4. Run Training
 
-```bash
-cd training
-yolo detect train data=data.yaml model=yolov8n.pt imgsz=416 epochs=15 batch=16 workers=8 name=crater_boulder_fast_train
+```python
+from ultralytics import YOLO
+
+model = YOLO('yolov8n.pt')
+
+model.train(
+    data='/content/data.yaml',
+    epochs=15,
+    imgsz=416,
+    batch=8,
+    workers=2,
+    name='crater_boulder_fast_train'
+)
+
 ```
 
 ### 5. Run Inference
 
-```bash
-cd inference
-python predict.py --weights ../runs/detect/crater_boulder_fast_train/weights/best.pt --source /path/to/image.jpg
+```python
+from ultralytics import YOLO
+
+# Load your trained model
+model = YOLO("runs/detect/crater_boulder_fast_train/weights/best.pt")
+
+# Run inference on an image or folder
+results = model.predict(source="path/to/test/image.jpg", save=True)
+
 ```
 
-### 6. Run UI (Optional)
-
-```bash
-cd ui
-streamlit run app.py
-```
+### 6. UI 
 
 # 🌕 Thank you for exploring our lunar detection project!
 **End of README**
