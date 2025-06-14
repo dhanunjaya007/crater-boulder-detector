@@ -17,13 +17,8 @@ This repository contains our implementation for detecting lunar craters and boul
 crater-boulder-detector/
 ├── .gitignore
 ├── README.md
-├── inference/
-│   └── predict.py       # Inference script to test on images or videos
-├── requirements.txt     # Python dependencies
 ├── Weights/
-    └── best.pt 
-├── training/
-│   └── train.py         # YOLO training script using Ultralytics
+│    └── best.pt 
 └── ui/
     └── app.py           # Flask-based web UI for demo
 ```
