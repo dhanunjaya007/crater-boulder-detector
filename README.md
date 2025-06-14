@@ -108,22 +108,28 @@ cd crater-boulder-detector
 ```bash
 pip install -r requirements.txt
 ```
+### 3. Download the Dataset
 
-### 3. Run Training
+Before training or inference, download the dataset from Google Drive:
+
+📂 [Click here to download the dataset](https://drive.google.com/drive/folders/1MYrhCtq5oQPsNDDOUdGTkW_H1VF8yXzw?usp=drive_link)
+
+
+### 4. Run Training
 
 ```bash
 cd training
-yolo detect train data=data.yaml model=yolov8n.pt imgsz=416 epochs=15 batch=16 workers=8 name=crater_boulder_fast_train2
+yolo detect train data=data.yaml model=yolov8n.pt imgsz=416 epochs=15 batch=16 workers=8 name=crater_boulder_fast_train
 ```
 
-### 4. Run Inference
+### 5. Run Inference
 
 ```bash
 cd inference
-python predict.py --weights ../runs/detect/crater_boulder_fast_train2/weights/best.pt --source /path/to/image.jpg
+python predict.py --weights ../runs/detect/crater_boulder_fast_train/weights/best.pt --source /path/to/image.jpg
 ```
 
-### 5. Run UI (Optional)
+### 6. Run UI (Optional)
 
 ```bash
 cd ui
