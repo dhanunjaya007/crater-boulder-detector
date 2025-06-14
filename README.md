@@ -1,7 +1,7 @@
 
 # Crater and Boulder Detection with YOLOv8 🚀
 
-This repository contains our implementation for detecting lunar craters and boulders using a customized YOLOv8n model. It includes model training, inference scripts, and a simple UI for demonstration.
+This repository contains our implementation for detecting lunar craters and boulders using a customized YOLOv8n model. It includes model training, inference scripts, and UI for demonstration.
 
 ## Team
 
@@ -20,10 +20,12 @@ crater-boulder-detector/
 ├── inference/
 │   └── predict.py       # Inference script to test on images or videos
 ├── requirements.txt     # Python dependencies
+├── Weights/
+    └── best.pt 
 ├── training/
 │   └── train.py         # YOLO training script using Ultralytics
 └── ui/
-    └── app.py           # Streamlit-based web UI for demo
+    └── app.py           # Flask-based web UI for demo
 ```
 
 ## Dataset
@@ -91,9 +93,41 @@ Final weights saved at `runs/detect/crater_boulder_fast_train2/weights/best.pt`.
 | CLAHE, Blurs, Gray    | Improved contrast/lighting handling in various lunar surface textures    |
 | Hardware              | Google Colab with Tesla T4 GPU                                           |
 | Dataset Annotation    | Manual bounding boxes in YOLO format                                     |
-| UI Implementation     | A basic Streamlit interface for uploading and viewing results            |
+| UI Implementation     | We developed a web interface using Flask, a Python micro web framework.  |
 
 ---
+## Steps to use our trained Model
+
+### 1.open a new notebook in colab
+
+### 2. Install Requirements
+
+```python
+!pip install ultralytics
+```
+### 3.Uploading our model to your colab notebook
+
+Download the best.pt in weight folders to your system locally. Use this command to save them in your colab notebook
+
+```python
+from google.colab import files
+
+uploaded = files.upload()
+
+```
+
+### 5. Run Inference
+
+```python
+from ultralytics import YOLO
+
+# Load your trained model
+model = YOLO("best.pt")
+
+# Run inference on an image or folder
+results = model.predict(source="path/to/test/image.jpg", save=True)
+
+```
 ## Creating the Project
 
 ### 1. Open a new notebook in colab
@@ -102,7 +136,7 @@ Change the running time to GPU for a faster training period
 
 ### 2. Install Requirements
 
-```bash
+```python
 !pip install ultralytics
 ```
 ### 3. Download the Dataset
@@ -165,6 +199,7 @@ model = YOLO("runs/detect/crater_boulder_fast_train/weights/best.pt")
 results = model.predict(source="path/to/test/image.jpg", save=True)
 
 ```
+You can use the model we trained. You can find it in /weights/best.pt and infer it.
 
 ### 6. UI 
 
