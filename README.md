@@ -65,7 +65,7 @@ We trained a YOLOv8n model using the Ultralytics `yolo` Python API. The training
 
 ---
 
-Final weights saved at `runs/detect/crater_boulder_fast_train2/weights/best.pt`.
+Final weights saved at `best.pt`.
 
 ---
 
@@ -113,7 +113,7 @@ uploaded = files.upload()
 
 ```
 
-### 5. Run Inference
+### 4. Run Inference
 
 ```python
 from ultralytics import YOLO
